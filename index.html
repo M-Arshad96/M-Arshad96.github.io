@@ -7,10 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Warm Neutrals with Slate Blue Accent -->
-    <!-- Application Structure Plan: A dashboard-style, single-page portfolio. The structure is designed for non-linear exploration, allowing recruiters to quickly grasp key achievements and dive into sections of interest. It starts with a high-impact 'Dashboard' of quantifiable metrics and a skills visualization. An interactive 'Experience' timeline encourages exploration of career progression. A categorized 'Skills' grid and a 'Projects' portfolio provide deeper dives. This structure is more engaging than a traditional resume and is optimized for quick scanning and deep exploration, enhancing usability for busy hiring managers. -->
-    <!-- Visualization & Content Choices: 1. Key Metrics (Inform) -> Styled Cards (HTML/CSS) -> Hover interaction -> Justification: Immediate high-impact summary of achievements. 2. Skills Overview (Compare) -> Radar Chart (Chart.js/Canvas) -> Hover tooltips -> Justification: Provides a quick, holistic, and visually appealing comparison of core competencies. 3. Career Timeline (Change/Organize) -> Interactive Vertical Timeline (HTML/JS) -> Click to expand details -> Justification: Turns a static list into an engaging narrative of career growth. 4. Projects (Inform) -> Interactive Cards (HTML/CSS) -> Clickable links -> Justification: Modern portfolio presentation encouraging exploration of actual work on GitHub. -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -60,6 +56,12 @@
             height: 300px;
             max-height: 400px;
         }
+        @media (max-width: 400px) {
+            .chart-container {
+                /* Reduce height slightly on very narrow screens for better label fit */
+                height: 280px; 
+            }
+        }
          @media (min-width: 768px) {
             .chart-container {
                 height: 400px;
@@ -70,8 +72,8 @@
 <body class="antialiased">
 
     <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div>
+        <nav class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+            <div class="mb-2 md:mb-0">
                 <h1 class="text-xl font-bold text-gray-800">Muhammad Arshad</h1>
                 <p class="text-sm text-gray-600">QA Engineer | Manual & Automation Testing</p>
             </div>
@@ -81,7 +83,7 @@
                 <a href="#skills" class="nav-link">Skills</a>
                 <a href="#projects" class="nav-link">Projects</a>
             </div>
-             <div class="md:hidden">
+             <div class="md:hidden w-full mt-2">
                 <select id="mobile-nav" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option value="#dashboard">Dashboard</option>
                     <option value="#experience">Experience</option>
@@ -90,7 +92,7 @@
                 </select>
             </div>
         </nav>
-    </header>
+        </header>
 
     <main class="container mx-auto px-6 py-12">
 
@@ -277,11 +279,11 @@
     <footer class="bg-white border-t border-gray-200">
         <div class="container mx-auto px-6 py-8 text-center text-gray-600">
             <p class="text-xl font-semibold mb-2">Get in Touch</p>
-            <div class="flex justify-center items-center space-x-6">
+            <div class="flex flex-col space-y-2 md:flex-row md:justify-center md:items-center md:space-x-6 md:space-y-0">
                 <a href="mailto:M.Arshad101996@gmail.com" class="hover:text-blue-500">M.Arshad101996@gmail.com</a>
-                <span>|</span>
+                <span class="hidden md:inline">|</span>
                 <a href="https://linkedin.com/in/muhammadarshad96" target="_blank" class="hover:text-blue-500">LinkedIn</a>
-                <span>|</span>
+                <span class="hidden md:inline">|</span>
                 <a href="https://github.com/M-Arshad96" target="_blank" class="hover:text-blue-500">GitHub</a>
             </div>
             <p class="mt-6 text-sm text-gray-500">&copy; 2025 Muhammad Arshad. All Rights Reserved.</p>
