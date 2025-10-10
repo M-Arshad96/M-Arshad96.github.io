@@ -49,18 +49,21 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
+        /* START: CHART FIXES */
         .chart-container {
             position: relative;
             width: 100%;
-            max-width: 500px;
+            /* Increased max-width for better desktop display */
+            max-width: 550px; 
             margin: auto;
-            height: 300px;
+            /* Default height */
+            height: 350px; 
             max-height: 400px;
         }
         @media (max-width: 400px) {
             .chart-container {
-                /* Reduce height slightly on very narrow screens for better label fit */
-                height: 280px; 
+                /* Ensured sufficient height on very narrow screens for label fit */
+                height: 330px; 
             }
         }
          @media (min-width: 768px) {
@@ -68,6 +71,8 @@
                 height: 400px;
             }
         }
+        /* END: CHART FIXES */
+        
         /* Custom style for the contact form section */
         .contact-form-container {
             max-width: 800px;
@@ -322,17 +327,28 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // Define full labels for the tooltip
+            const fullLabels = [
+                'API Automation (REST-assured)', 
+                'UI Automation (Java/Playwright)', 
+                'Framework Design (POM/BDD)', 
+                'CI/CD Integration', 
+                'Agile Methodologies', 
+                'Defect Management (JIRA)'
+            ];
+
             const ctx = document.getElementById('skillsChart').getContext('2d');
             const skillsChart = new Chart(ctx, {
                 type: 'radar',
                 data: {
+                    // Use shorter labels for mobile view (FIX)
                     labels: [
-                        'API Automation (REST-assured)', 
-                        'UI Automation (Playwright)', 
-                        'Framework Design (POM/BDD)', 
-                        'CI/CD Integration', 
-                        'Agile Methodologies', 
-                        'Defect Management (JIRA)'
+                        'API Automation', 
+                        'UI Automation', 
+                        'Framework Design', 
+                        'CI/CD', 
+                        'Agile', 
+                        'Defect Mgmt.'
                     ],
                     datasets: [{
                         label: 'Proficiency',
@@ -359,10 +375,13 @@
                             },
                             pointLabels: {
                                 font: {
-                                    size: 12,
+                                    // Smaller font size for better fit (FIX)
+                                    size: 10, 
                                     weight: 'bold'
                                 },
-                                color: '#333'
+                                color: '#333',
+                                // Added padding to push labels away from the chart center (FIX)
+                                padding: 10 
                             },
                             ticks: {
                                 backdropColor: 'transparent',
@@ -378,8 +397,9 @@
                         },
                         tooltip: {
                             callbacks: {
+                                // Use the full labels when hovering over a point (FIX)
                                 label: function(context) {
-                                    return context.dataset.label + ': ' + context.raw + '%';
+                                    return fullLabels[context.dataIndex] + ': ' + context.raw + '%';
                                 }
                             }
                         }
