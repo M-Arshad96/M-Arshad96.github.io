@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muhammad Arshad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals with Slate Blue Accent -->
+    <!-- Application Structure Plan: A dashboard-style, single-page portfolio. The structure is designed for non-linear exploration, allowing recruiters to quickly grasp key achievements and dive into sections of interest. It starts with a high-impact 'Dashboard' of quantifiable metrics and a skills visualization. An interactive 'Experience' timeline encourages exploration of career progression. A categorized 'Skills' grid and a 'Projects' portfolio provide deeper dives. This structure is more engaging than a traditional resume and is optimized for quick scanning and deep exploration, enhancing usability for busy hiring managers. -->
+    <!-- Visualization & Content Choices: 1. Key Metrics (Inform) -> Styled Cards (HTML/CSS) -> Hover interaction -> Justification: Immediate high-impact summary of achievements. 2. Skills Overview (Compare) -> Radar Chart (Chart.js/Canvas) -> Hover tooltips -> Justification: Provides a quick, holistic, and visually appealing comparison of core competencies. 3. Career Timeline (Change/Organize) -> Interactive Vertical Timeline (HTML/JS) -> Click to expand details -> Justification: Turns a static list into an engaging narrative of career growth. 4. Projects (Inform) -> Interactive Cards (HTML/CSS) -> Clickable links -> Justification: Modern portfolio presentation encouraging exploration of actual work on GitHub. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+            color: #333;
+        }
+        .nav-link {
+            transition: color 0.3s ease, border-bottom-color 0.3s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+        .metric-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .timeline-item {
+            cursor: pointer;
+        }
+        .timeline-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .timeline-item.active .timeline-content {
+            max-height: 500px;
+        }
+        .project-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+         @media (min-width: 768px) {
+            .chart-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div>
+                <h1 class="text-xl font-bold text-gray-800">Muhammad Arshad</h1>
+                <p class="text-sm text-gray-600">QA Engineer | Manual & Automation Testing</p>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#dashboard" class="nav-link active">Dashboard</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#projects" class="nav-link">Projects</a>
+            </div>
+             <div class="md:hidden">
+                <select id="mobile-nav" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                    <option value="#dashboard">Dashboard</option>
+                    <option value="#experience">Experience</option>
+                    <option value="#skills">Skills</option>
+                    <option value="#projects">Projects</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <section id="dashboard" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-2">Career Dashboard</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">An overview of my professional journey, highlighting key achievements and technical capabilities in quality assurance and automation.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+                <div class="metric-card p-6 rounded-lg text-center">
+                    <div class="text-blue-500 text-4xl mb-2">4+</div>
+                    <h3 class="text-lg font-semibold text-gray-700">Years of Experience</h3>
+                    <p class="text-sm text-gray-500">in API, UI & E2E Testing</p>
+                </div>
+                <div class="metric-card p-6 rounded-lg text-center">
+                    <div class="text-green-500 text-4xl mb-2">40%</div>
+                    <h3 class="text-lg font-semibold text-gray-700">Faster Regression</h3>
+                    <p class="text-sm text-gray-500">Reduced manual testing effort</p>
+                </div>
+                <div class="metric-card p-6 rounded-lg text-center">
+                    <div class="text-red-500 text-4xl mb-2">20%</div>
+                    <h3 class="text-lg font-semibold text-gray-700">Quality Improvement</h3>
+                    <p class="text-sm text-gray-500">Reduced production defect leakage</p>
+                </div>
+                <div class="metric-card p-6 rounded-lg text-center">
+                    <div class="text-purple-500 text-4xl mb-2">500+</div>
+                    <h3 class="text-lg font-semibold text-gray-700">Defects Managed</h3>
+                    <p class="text-sm text-gray-500">Logged & tracked in JIRA</p>
+                </div>
+            </div>
+            
+            <div class="bg-white p-8 rounded-lg shadow-md border border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-800 text-center mb-2">Core Competencies</h3>
+                 <p class="text-md text-gray-600 text-center mb-6">This chart visualizes my proficiency across key areas of QA. A balanced skill set ensures comprehensive test coverage and robust automation strategies. Hover over a point to see the skill.</p>
+                <div class="chart-container">
+                    <canvas id="skillsChart"></canvas>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="experience" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-2">Professional Experience</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">My career progression, detailing responsibilities and achievements. Click on each role to expand and see the key contributions and impact I made.</p>
+            </div>
+            
+            <div class="relative border-l-2 border-blue-200 pl-10">
+                <div class="timeline-item mb-10 active">
+                    <div class="absolute -left-3.5 mt-1.5 w-6 h-6 bg-blue-500 rounded-full border-4 border-white"></div>
+                    <time class="mb-1 text-sm font-normal leading-none text-gray-500">Jan 2022 – Present</time>
+                    <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                        Software Quality Assurance Associate 
+                        <span class="text-gray-400 font-light ml-2">@ Telus Communications</span>
+                        <span class="ml-auto text-sm font-medium text-blue-500">Click to expand</span>
+                    </h3>
+                    <div class="timeline-content">
+                        <p class="mt-2 text-base font-normal text-gray-600">Project: TIQ JAGUAR</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600">
+                            <li>Spearheaded automation of the regression suite using a Playwright-Java framework, cutting manual testing effort by 40%.</li>
+                            <li>Elevated product quality by designing 150+ test cases and logging 300+ defects in JIRA, reducing production defect leakage by 20%.</li>
+                            <li>Architected and executed comprehensive validation of critical subscriber management REST APIs using REST-assured.</li>
+                            <li>Collaborated with Agile/Scrum teams to ensure quality compliance and timely delivery.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="absolute -left-3.5 mt-1.5 w-6 h-6 bg-blue-500 rounded-full border-4 border-white"></div>
+                    <time class="mb-1 text-sm font-normal leading-none text-gray-500">May 2021 – Dec 2022</time>
+                    <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                        Software Quality Assurance Trainee 
+                        <span class="text-gray-400 font-light ml-2">@ Telus Communications</span>
+                         <span class="ml-auto text-sm font-medium text-blue-500">Click to expand</span>
+                    </h3>
+                    <div class="timeline-content">
+                        <p class="mt-2 text-base font-normal text-gray-600">Project: HEDWIG</p>
+                        <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-600">
+                            <li>Contributed to the launch of a high-volume platform for corporate device and SIM procurement.</li>
+                            <li>Designed and executed 100+ UI test cases using Selenium WebDriver, identifying and reporting 200+ UI/UX issues.</li>
+                            <li>Ensured cross-browser compatibility and responsiveness across all major browsers.</li>
+                            <li>Tested authentication and security features to protect sensitive customer data.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="mb-16 scroll-mt-24">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-2">Technical Skills</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">A detailed breakdown of the languages, tools, and frameworks I utilize to build and maintain high-quality software testing solutions.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Languages</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">Java (Primary)</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">JavaScript</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Automation Tools</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Playwright</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Selenium WebDriver</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">REST-assured</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Cucumber (BDD)</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">TestNG</span>
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">Postman</span>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Frameworks & Methodologies</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">BDD</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">Page Object Model (POM)</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">Data-Driven</span>
+                        <span class="bg-indigo-100 text-indigo-800 text-sm font-medium px-3 py-1 rounded-full">CI/CD</span>
+                         <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">Agile/Scrum</span>
+                    </div>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200 md:col-span-2 lg:col-span-3">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-4">Ecosystem & Other</h3>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">JIRA</span>
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">GitHub</span>
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">Maven</span>
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">SAP</span>
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">SDLC</span>
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">STLC</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="mb-16 scroll-mt-24">
+             <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-800 mb-2">Automation & Framework Projects</h2>
+                <p class="text-lg text-gray-600 max-w-3xl mx-auto">A selection of frameworks and projects I've built. These demonstrate my ability to create scalable, maintainable, and efficient automation solutions. Click to view on GitHub.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <a href="https://github.com/M-Arshad96/playwright_pom_model_framwork" target="_blank" class="project-card block bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Playwright/Java BDD/POM Framework</h3>
+                    <p class="text-gray-600 mb-4">A scalable E2E framework using Playwright, Java, and BDD (Cucumber) with a clean POM architecture. Features integrated reporting and CI/CD readiness.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Playwright</span>
+                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Java</span>
+                         <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">BDD</span>
+                    </div>
+                </a>
+                <a href="https://github.com/M-Arshad96/playwright_API_Testing" target="_blank" class="project-card block bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">REST API Test Automation</h3>
+                    <p class="text-gray-600 mb-4">A dedicated API test automation framework using Playwright/Java to validate core business logic, supporting robust CRUD operations.</p>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">Playwright</span>
+                        <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">API Testing</span>
+                    </div>
+                </a>
+                 <a href="https://github.com/M-Arshad96/java_Selenium_Automation_PageFactory_model" target="_blank" class="project-card block bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Selenium Page Factory Model Framework</h3>
+                    <p class="text-gray-600 mb-4">Java-based Selenium framework using Page Factory Model (PFM) for functional test automation. Integrated with TestNG and Maven.</p>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded">Selenium</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded">Java</span>
+                        <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded">PFM</span>
+                    </div>
+                </a>
+                 <a href="https://github.com/M-Arshad96/java_Selenium_Automation_Framwork_POM_Model" target="_blank" class="project-card block bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Selenium Page Object Model Framework</h3>
+                    <p class="text-gray-600 mb-4">Java-based Selenium framework using the standard POM for clean, maintainable, and reusable functional test code. Integrated with TestNG and Maven.</p>
+                     <div class="flex flex-wrap gap-2">
+                        <span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">Selenium</span>
+                        <span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">Java</span>
+                         <span class="bg-red-100 text-red-800 text-xs font-semibold px-2.5 py-0.5 rounded">POM</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
+            <p class="text-xl font-semibold mb-2">Get in Touch</p>
+            <div class="flex justify-center items-center space-x-6">
+                <a href="mailto:M.Arshad101996@gmail.com" class="hover:text-blue-500">M.Arshad101996@gmail.com</a>
+                <span>|</span>
+                <a href="https://linkedin.com/in/muhammadarshad96" target="_blank" class="hover:text-blue-500">LinkedIn</a>
+                <span>|</span>
+                <a href="https://github.com/M-Arshad96" target="_blank" class="hover:text-blue-500">GitHub</a>
+            </div>
+            <p class="mt-6 text-sm text-gray-500">&copy; 2025 Muhammad Arshad. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('skillsChart').getContext('2d');
+            const skillsChart = new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        'API Automation (REST-assured)', 
+                        'UI Automation (Playwright)', 
+                        'Framework Design (POM/BDD)', 
+                        'CI/CD Integration', 
+                        'Agile Methodologies', 
+                        'Defect Management (JIRA)'
+                    ],
+                    datasets: [{
+                        label: 'Proficiency',
+                        data: [90, 95, 90, 80, 95, 85],
+                        backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                        borderColor: 'rgba(59, 130, 246, 1)',
+                        borderWidth: 2,
+                        pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(59, 130, 246, 1)'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.1)'
+                            },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    weight: 'bold'
+                                },
+                                color: '#333'
+                            },
+                            ticks: {
+                                backdropColor: 'transparent',
+                                stepSize: 20
+                            },
+                             suggestedMin: 0,
+                             suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                           display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach(item => {
+                item.addEventListener('click', () => {
+                     timelineItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    item.classList.toggle('active');
+                });
+            });
+
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('section');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => {
+                            link.classList.toggle('active', link.getAttribute('href').substring(1) === entry.target.id);
+                        });
+                    }
+                });
+            }, { threshold: 0.5 });
+            sections.forEach(section => observer.observe(section));
+            
+            const mobileNav = document.getElementById('mobile-nav');
+            mobileNav.addEventListener('change', (e) => {
+                window.location.hash = e.target.value;
+            });
+        });
+    </script>
+
+</body>
+</html>
