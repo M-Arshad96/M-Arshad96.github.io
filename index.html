@@ -7,6 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -67,6 +68,12 @@
                 height: 400px;
             }
         }
+        /* Custom style for the contact form section */
+        .contact-form-container {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -77,22 +84,32 @@
                 <h1 class="text-xl font-bold text-gray-800">Muhammad Arshad</h1>
                 <p class="text-sm text-gray-600">QA Engineer | Manual & Automation Testing</p>
             </div>
-            <div class="hidden md:flex items-center space-x-8">
+
+            <div class="hidden md:flex items-center space-x-6">
                 <a href="#dashboard" class="nav-link active">Dashboard</a>
                 <a href="#experience" class="nav-link">Experience</a>
                 <a href="#skills" class="nav-link">Skills</a>
                 <a href="#projects" class="nav-link">Projects</a>
+                <div class="h-6 w-px bg-gray-300"></div> <a href="https://linkedin.com/in/muhammadarshad96" target="_blank" class="text-gray-600 hover:text-blue-500" title="LinkedIn"><i class="fab fa-linkedin text-xl"></i></a>
+                <a href="https://github.com/M-Arshad96" target="_blank" class="text-gray-600 hover:text-blue-500" title="GitHub"><i class="fab fa-github text-xl"></i></a>
+                <a href="mailto:M.Arshad101996@gmail.com" class="text-gray-600 hover:text-blue-500" title="Email"><i class="fas fa-envelope text-xl"></i></a>
             </div>
-             <div class="md:hidden w-full mt-2">
+            <div class="md:hidden w-full mt-2">
                 <select id="mobile-nav" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     <option value="#dashboard">Dashboard</option>
                     <option value="#experience">Experience</option>
                     <option value="#skills">Skills</option>
                     <option value="#projects">Projects</option>
-                </select>
-            </div>
+                    </select>
+                
+                <div class="flex justify-center space-x-6 mt-4 pb-2 border-b border-gray-200">
+                    <a href="https://linkedin.com/in/muhammadarshad96" target="_blank" class="text-gray-600 hover:text-blue-500" title="LinkedIn"><i class="fab fa-linkedin text-xl"></i></a>
+                    <a href="https://github.com/M-Arshad96" target="_blank" class="text-gray-600 hover:text-blue-500" title="GitHub"><i class="fab fa-github text-xl"></i></a>
+                    <a href="mailto:M.Arshad101996@gmail.com" class="text-gray-600 hover:text-blue-500" title="Email"><i class="fas fa-envelope text-xl"></i></a>
+                </div>
+                </div>
         </nav>
-        </header>
+    </header>
 
     <main class="container mx-auto px-6 py-12">
 
@@ -109,12 +126,12 @@
                     <p class="text-sm text-gray-500">in API, UI & E2E Testing</p>
                 </div>
                 <div class="metric-card p-6 rounded-lg text-center">
-                    <div class="text-green-500 text-4xl mb-2">50%</div>
+                    <div class="text-green-500 text-4xl mb-2">40%</div>
                     <h3 class="text-lg font-semibold text-gray-700">Faster Regression</h3>
                     <p class="text-sm text-gray-500">Reduced manual testing effort</p>
                 </div>
                 <div class="metric-card p-6 rounded-lg text-center">
-                    <div class="text-red-500 text-4xl mb-2">40%</div>
+                    <div class="text-red-500 text-4xl mb-2">20%</div>
                     <h3 class="text-lg font-semibold text-gray-700">Quality Improvement</h3>
                     <p class="text-sm text-gray-500">Reduced production defect leakage</p>
                 </div>
@@ -277,8 +294,19 @@
     </main>
 
     <footer class="bg-white border-t border-gray-200">
-        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
-            <p class="text-xl font-semibold mb-2">Get in Touch</p>
+        <div class="container mx-auto px-6 py-8 text-center text-gray-600 contact-form-container">
+            <h2 class="text-4xl font-bold text-gray-800 mb-8">Get in Touch</h2>
+
+            <div class="mb-10">
+                <p class="text-lg text-gray-700 mb-4 font-semibold">Ready to discuss a role or project? Use my dedicated contact form.</p>
+                <a 
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSfEhDuNKFOKBMFX6EVyszED94sje5rmLrEp4lFP9oDHQAcx0g/viewform" 
+                    target="_blank" 
+                    class="inline-block bg-blue-500 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-600 transition duration-300 transform hover:scale-105">
+                    Contact Me Directly <i class="fas fa-arrow-up-right-from-square ml-2"></i>
+                </a>
+            </div>
+            <p class="text-xl font-semibold mb-4">Or Connect Via:</p>
             <div class="flex flex-col space-y-2 md:flex-row md:justify-center md:items-center md:space-x-6 md:space-y-0">
                 <a href="mailto:M.Arshad101996@gmail.com" class="hover:text-blue-500">M.Arshad101996@gmail.com</a>
                 <span class="hidden md:inline">|</span>
@@ -286,7 +314,7 @@
                 <span class="hidden md:inline">|</span>
                 <a href="https://github.com/M-Arshad96" target="_blank" class="hover:text-blue-500">GitHub</a>
             </div>
-            <p class="mt-6 text-sm text-gray-500">&copy; 2025 Muhammad Arshad. All Rights Reserved.</p>
+            <p class="mt-8 text-sm text-gray-500">&copy; 2025 Muhammad Arshad. All Rights Reserved.</p>
         </div>
     </footer>
 
